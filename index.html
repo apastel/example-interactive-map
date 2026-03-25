@@ -1,56 +1,59 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Colorado Interactive Map</title>
-    <meta charset="utf-8" />
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <title>Interactive Map</title>
     <style>
-        #map {
-            height: 600px;
+        /* Basic styles for the timeline */
+        #timeline {
+            position: relative;
+            width: 100%;
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 10px;
+            border: 1px solid #ddd;
+            background: #f9f9f9;
+        }
+        .date-item {
+            padding: 10px;
+            cursor: pointer;
+        }
+        .highlight {
+            background: #ffeb3b;
         }
     </style>
 </head>
 <body>
-    <h1>Colorado Interactive Map</h1>
     <div id="map"></div>
-    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+    <!-- Timeline Section -->
+    <div id="timeline">
+        <h2>Colorado Historical Timeline</h2>
+        <div class="date-item" data-date="1846">1846 - Establishment of the First American Settlements</div>
+        <div class="date-item" data-date="1876">1876 - Colorado Becomes a State</div>
+        <div class="date-item" data-date="1936">1936 - Completion of the Tennessee Pass</div>
+        <div class="date-item" data-date="1976">1976 - Colorado's Bicentennial</div>
+        <div class="date-item" data-date="2001">2001 - Establishment of the "State of Colorado" website</div>
+    </div>
+
     <script>
-        // Initialize the map
-        var map = L.map('map').setView([39.5501, -105.7821], 7);
+        // JavaScript to handle highlighting markers
+        const dateItems = document.querySelectorAll('.date-item');
 
-        // Add a tile layer
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            maxZoom: 19,
-        }).addTo(map);
-
-        // Define marker locations
-        var locations = [
-            {
-                name: "FUckland, USA",
-                description: "The capital city of Colorado.",
-                image: "https://example.com/images/denver.jpg",
-                coords: [39.7392, -104.9903]
-            },
-            {
-                name: "Boulder",
-                description: "Known for its beautiful scenery and outdoor activities.",
-                image: "https://example.com/images/boulder.jpg",
-                coords: [40.0150, -105.2705]
-            },
-            {
-                name: "Rocky Mountain National Park",
-                description: "A stunning national park with breathtaking views.",
-                image: "https://example.com/images/rocky_mountain.jpg",
-                coords: [40.3428, -105.6836]
-            }
-        ];
-
-        // Add markers to the map
-        locations.forEach(function(location) {
-            var popupContent = '<strong>' + location.name + '</strong><br>' + location.description + '<br><img src="' + location.image + '" width="100" />';
-            L.marker(location.coords).addTo(map).bindPopup(popupContent);
+        dateItems.forEach(item => {
+            item.addEventListener('click', () => {
+                dateItems.forEach(i => i.classList.remove('highlight')); // Remove highlight from all
+                item.classList.add('highlight'); // Highlight selected item
+                highlightMarker(item.dataset.date); // Function to highlight the corresponding marker
+            });
         });
+
+        function highlightMarker(date) {
+            // Placeholder for marker highlighting logic based on selected date
+            console.log('Highlight marker for date:', date);
+            // Implement actual highlighting logic here
+        }
     </script>
 </body>
 </html>
